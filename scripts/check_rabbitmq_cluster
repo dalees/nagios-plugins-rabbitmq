@@ -1,13 +1,9 @@
 #!/usr/bin/env perl
-
-###  check_rabbitmq_cluster
-
-# Use the management API to check the number of servers in a cluster.
-
-# based on check_rabbitmq_cluster.pl,
-# Originally by Nathan Vonnahme, n8v at users dot sourceforge
-# dot net, July 19 2006
-
+#
+# check_rabbitmq_cluster
+#
+# Uses the management APIs to check the number of servers in a cluster.
+#
 ##############################################################################
 # prologue
 use strict;
@@ -119,7 +115,7 @@ else {
 }
 
 ##############################################################################
-# check stuff.
+# gather rabbitmq status info and make sense of it.
 
 my $hostname=$p->opts->hostname;
 my $port=$p->opts->port;
@@ -278,7 +274,7 @@ http://www.rabbitmq.com/management.html
 
 This file is part of nagios-plugins-rabbitmq.
 
-Copyright 2010, Platform 14.
+Copyright 2014, Catalyst IT http://www.catalyst.net.nz
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
