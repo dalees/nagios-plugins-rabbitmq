@@ -1,0 +1,13 @@
+Source: nagios-plugins-rabbitmq
+Maintainer: Dale Smith <dale@catalyst-eu.net>
+Section: misc
+Priority: optional
+Standards-Version: 3.9.1
+Build-Depends: debhelper (>= 8)
+
+Package: nagios-plugins-rabbitmq
+Architecture: all
+Depends: libnagios-plugin-perl, liblwp-useragent-determined-perl, libjson-perl, liburi-perl
+Description: Nagios plugins for RabbitMQ
+ This package provides a set of plugins to monitor a rabbitmq cluster.
+

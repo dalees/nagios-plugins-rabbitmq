@@ -25,6 +25,9 @@ Currently we have the following checks:
   - Use the `/api/connections` API to gather details of connections used,
     their state and their throughput
 
+- check\_rabbitmq\_cluster
+  - Use '/api/nodes' API to report details of the number and status of servers in the cluster.
+
 - check\_rabbitmq\_objects
   - Use a variety of APIs to count instances of various objects on the
     server. These include vhosts, exchanges, bindings, queues and

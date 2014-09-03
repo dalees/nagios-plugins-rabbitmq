@@ -1,0 +1,5 @@
+nagios-plugins-rabbitmq (1.0.0-1) precise; urgency=low
+
+  * Initial release
+
+ -- Dale Smith <dale@catalyst-eu.net>  Wed, 03 Sep 2014 15:35:32 +0100
