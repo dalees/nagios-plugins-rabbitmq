@@ -21,7 +21,7 @@
 #     Ricardo Rocha <ricardo@catalyst.net.nz>
 
 name = nagios-plugins-rabbitmq
-version = 1.1.0
+version = 1.1.0ppa1
 
 # install options (like configure)
 # ex: make sysconfdir=/etc libdir=/usr/lib64 sysconfdir=/etc install
