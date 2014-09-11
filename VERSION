@@ -1,4 +1,0 @@
-# The version and name of the debian package, in a digestable format for shell scripts.
-name="nagios-plugins-rabbitmq"
-version="1.0.0"
-

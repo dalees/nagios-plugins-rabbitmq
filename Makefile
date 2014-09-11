@@ -21,7 +21,7 @@
 #     Ricardo Rocha <ricardo@catalyst.net.nz>
 
 name = nagios-plugins-rabbitmq
-version = 1.0.0
+version = 1.1.0
 
 # install options (like configure)
 # ex: make sysconfdir=/etc libdir=/usr/lib64 sysconfdir=/etc install
@@ -70,3 +70,17 @@ deb: dist
 	cd $(tmp_dir)/$(name)-$(version); debuild -uc -us
 	cp $(tmp_dir)/$(name)*.deb .
 	rm -rf $(tmp_dir)
+
+ppa: dist
+	@echo "Building source PPA and signing..."
+	mkdir -p $(tmp_dir)
+	cp $(name)-$(version).tar.gz $(tmp_dir)/$(name)_$(version).orig.tar.gz
+	tar -C $(tmp_dir) -xzf $(tmp_dir)/$(name)_$(version).orig.tar.gz
+	cd $(tmp_dir)/$(name)-$(version); debuild -S
+	@echo
+	@echo "---"
+	@echo "To upload the PPA, run the following command:"
+	@echo "dput ppa:<ppa target> <changes file>"
+	@echo "eg."
+	@echo "dput ppa:dalees/openstack tmp/$(name)_$(version)_source.changes"
+	@echo "---"

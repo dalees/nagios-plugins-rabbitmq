@@ -1,5 +1,7 @@
-nagios-plugins-rabbitmq (1.0.0-1) precise; urgency=low
+nagios-plugins-rabbitmq (1.1.0) precise; urgency=low
 
-  * Initial release
+  * Initial release of debianised plugins.
+    - Includes check_rabbitmq_cluster
 
- -- Dale Smith <dale@catalyst-eu.net>  Wed, 03 Sep 2014 15:35:32 +0100
+ -- Dale Smith <dale@catalyst-eu.net>  Fri, 05 Sep 2014 16:51:42 +0100
+
