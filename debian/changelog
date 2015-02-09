@@ -1,3 +1,9 @@
+nagios-plugins-rabbitmq (1.1.0ppa2) precise; urgency=medium
+
+  * Added insecure option for ssl connections.
+
+ -- Dale Smith <dale@catalyst-eu.net>  Mon, 09 Feb 2015 22:07:23 +0000
+
 nagios-plugins-rabbitmq (1.1.0ppa1) precise; urgency=medium
 
   * Updated nrpe cfg files to point to the correct debianised place.
