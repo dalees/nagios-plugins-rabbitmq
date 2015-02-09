@@ -69,6 +69,11 @@ $p->add_arg(spec => 'ssl|ssl!',
     default => 0
 );
 
+$p->add_arg(spec => 'insecure|insecure!',
+    help => "Enable insecure ssl mode. Disables checking of server certs. (default: false)",
+    default => 0
+);
+
 $p->add_arg(spec => 'proxy|proxy!',
     help => "Use environment proxy (default: true)",
     default => 1
@@ -100,6 +105,7 @@ my $url = sprintf("http%s://%s:%d/api/nodes/rabbit\@%s", ($p->opts->ssl ? "s" : 
 my $ua = LWP::UserAgent->new(env_proxy => $p->opts->proxy);
 $ua->agent($PROGNAME.' ');
 $ua->timeout($p->opts->timeout);
+$ua->ssl_opts( 'verify_hostname' => ($p->opts->insecure ? '0' : '1') );
 $ua->credentials("$hostname:$port",
     "RabbitMQ Management", $p->opts->username, $p->opts->password);
 my $req = HTTP::Request->new(GET => $url);
