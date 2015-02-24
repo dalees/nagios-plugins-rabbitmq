@@ -1,0 +1,5 @@
+debian/nagios-plugins-rabbitmq.debhelper.log
+debian/nagios-plugins-rabbitmq/
+tmp/
+nagios-plugins-rabbitmq-*.tar.gz
+nagios-plugins-rabbitmq_*.deb

@@ -1,3 +1,10 @@
+nagios-plugins-rabbitmq (1.1.0ppa3) precise; urgency=medium
+
+  * Changed from LWP::UserAgent to Mojo::UserAgent to avoid SSL issues.
+    - Updated in partition and cluster checks only for now.
+
+ -- Dale Smith <dale@catalyst-eu.net>  Tue, 24 Feb 2015 13:00:05 +0000
+
 nagios-plugins-rabbitmq (1.1.0ppa2) precise; urgency=medium
 
   * Added insecure option for ssl connections.

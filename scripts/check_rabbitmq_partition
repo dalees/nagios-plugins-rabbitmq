@@ -13,8 +13,8 @@
 use strict;
 use warnings;
 
-use Nagios::Plugin ;
-use LWP::UserAgent;
+use Nagios::Plugin;
+use Mojo::UserAgent;
 use URI::Escape;
 use JSON;
 
@@ -95,21 +95,30 @@ if (!$nodename) {
     $nodename = $1;
 }
 
-my $url = sprintf("http%s://%s:%d/api/nodes/rabbit\@%s", ($p->opts->ssl ? "s" : ""), $hostname, $port, $nodename);
+my $urlpath = sprintf("api/nodes/rabbit@%s", $nodename);
+my $auth = sprintf("%s:%s@", $p->opts->username, $p->opts->password);
+my $url = sprintf("http%s://%s%s:%d/%s", ($p->opts->ssl ? "s" : ""), $auth, $hostname, $port, $urlpath);
 
-my $ua = LWP::UserAgent->new(env_proxy => $p->opts->proxy);
-$ua->agent($PROGNAME.' ');
-$ua->timeout($p->opts->timeout);
-$ua->ssl_opts( 'verify_hostname' => ($p->opts->insecure ? '0' : '1') );
-$ua->credentials("$hostname:$port",
-    "RabbitMQ Management", $p->opts->username, $p->opts->password);
-my $req = HTTP::Request->new(GET => $url);
-my $res = $ua->request($req);
+my $ua = Mojo::UserAgent->new;
+if ($p->opts->proxy) {
+#    # Removed because proxy is not available in Precise package libmojolicious-perl
+#    use Mojo::UserAgent::Proxy;
+#    $ua = $ua->proxy(Mojo::UserAgent::Proxy->new);
+#    # Detect proxy servers from environment
+#    $ua->proxy->detect;
 
-if (!$res->is_success) {
+     # Precise version
+     $ua->detect_proxy;
+}
+#$ua->request_timeout(5);
+
+my $tx = $ua->get( $url );
+my $res = $tx->res;
+
+if ($res->code != 200) {
     # Deal with standard error conditions - make the messages more sensible
     if ($res->code == 400) {
-        my $bodyref = decode_json $res->content;
+        my $bodyref = decode_json $res->body;
         $p->nagios_exit(CRITICAL, $bodyref->{'reason'});
     }
     $res->code == 404 and $p->nagios_die("Not found");
@@ -118,10 +127,15 @@ if (!$res->is_success) {
         $p->nagios_exit(CRITICAL, "Received ".$res->status_line);
     }
 }
-my $bodyref = decode_json $res->content;
 
-my $partitions=$bodyref->{'partitions'};
-ref($partitions) eq "ARRAY" or $p->nagios_exit(CRITICAL, $res->content);
+my $bodyhref = $res->json;
+
+# for testing with /api/nodes
+#my $json_aref = $res->json;
+#my $bodyhref = ${$json_aref}[0];
+
+my $partitions=${$bodyhref}{'partitions'};
+ref($partitions) eq "ARRAY" or $p->nagios_exit(CRITICAL, $res->body);
 scalar(@$partitions)==0 or $p->nagios_exit(CRITICAL, "Partitions detected: @$partitions");
 
 my($code, $message) = (OK, "No Partitions");

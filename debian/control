@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 8)
 
 Package: nagios-plugins-rabbitmq
 Architecture: all
-Depends: libnagios-plugin-perl, liblwp-useragent-determined-perl, libjson-perl, liburi-perl, ${misc:Depends}
+Depends: libnagios-plugin-perl, liblwp-useragent-determined-perl, libmojolicious-perl, libjson-perl, liburi-perl, ${misc:Depends}
 Description: Nagios plugins for RabbitMQ
  This package provides a set of plugins to monitor a rabbitmq cluster.
 
